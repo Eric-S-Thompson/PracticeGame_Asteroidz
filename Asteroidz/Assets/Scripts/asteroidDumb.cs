@@ -1,3 +1,6 @@
+/*
+ * Simple asteroid which moves in a random direction and is destroyed when hit by an object with the "PlayerProjectile" tag
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +8,8 @@ using UnityEngine;
 public class asteroidDumb : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private float zRot;
-    private int reverseRot;
+    private float zRot; //Random initial direction the asteroid moves toward when being initialized
+    private int reverseRot; //-1 or 1, determines if the asteroid moves clockwise or counterclockwise
 
     public float moveSpeed;
     public float rotateSpeed;
@@ -15,10 +18,12 @@ public class asteroidDumb : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        //Generating random values for rotation and reverse direction
         zRot = randomRot();
         reverseRot = reverse();
-
+        //Set the rotation
         transform.rotation = Quaternion.Euler(0, 0, zRot);
+        //Put the object in motion
         rb.velocity = transform.up * moveSpeed;
     }
 
@@ -40,12 +45,12 @@ public class asteroidDumb : MonoBehaviour
         return ((Random.Range(0, 2) == 0) ? 1 : -1);
     }
 
+    //Collision occurs
     void OnTriggerEnter2D(Collider2D target)
     {
-        Debug.Log("Asteroid collided");
         if (target.tag == "PlayerProjectile")
         {
-            Debug.Log("Projectile collided");
+            //Destroy the projectile which hit this object, and then this object
             Destroy(target.gameObject);
             Destroy(this.gameObject);
         }

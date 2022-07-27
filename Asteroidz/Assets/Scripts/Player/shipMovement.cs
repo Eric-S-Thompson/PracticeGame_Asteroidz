@@ -1,20 +1,26 @@
+/*
+ * Movement of the player's ship. The ship may accelerate forward, rotate, and fire projectiles.
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class shipMovement : MonoBehaviour
 {
-    public bool debug = false;
+    public bool debug = false; //Set to true to print debug info
 
     Animator animator;
     private Rigidbody2D rb;
 
+    //Speed attributes
     public float rotateSpeed;
     public float moveSpeed;
 
+    //Projectile attributes
     public GameObject projectile;
-    public float projectileOffset;
+    public float projectileOffset; //Distance from the center of the ship
 
+    //Holds keyboard inputs from the player
     private float throttle = 0f;
     private float rotate = 0f;
 
@@ -27,6 +33,7 @@ public class shipMovement : MonoBehaviour
 
     void Update()
     {
+        //Player has fired projectile
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(projectile, transform.position + (transform.up * projectileOffset), transform.rotation);
@@ -34,6 +41,7 @@ public class shipMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        //Get player inputs
         throttle = Input.GetAxis("Vertical");
         rotate = Input.GetAxis("Horizontal");
 
@@ -46,7 +54,7 @@ public class shipMovement : MonoBehaviour
 
         //Apply throttle
         rb.AddForce(transform.up * moveSpeed * throttle);
-        //Animate if moving forward
+        //Animate flames behind the ship if moving forward
         if (throttle > 0f)
         {
             animator.SetBool("isMoving", true);
