@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8675691875094869070}
   - component: {fileID: 8675691875094869071}
   m_Layer: 0
-  m_Name: asteroid1
+  m_Name: asteroidSplittable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8675691875094869059}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5f4f83a014db05b4293259963d802bf3, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -169,4 +169,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   rotateSpeed: 5
+  numSmallerAsteroids: 3
   smallerAsteroids: {fileID: 7486919347582985568, guid: f1c1d907ef65f1d42a4b2df14317af20, type: 3}
